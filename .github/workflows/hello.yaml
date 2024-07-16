@@ -1,0 +1,24 @@
+# 指定 Actions 的名稱，會顯示在 Actions 頁面上
+name: Hello Actions
+
+# 指定觸發的事件(trigger event)，這裡是 push 到 main 分支時觸發
+on:
+  push:
+    branches: main
+
+# 指定工作流程(jobs)
+# 每個 actions 至少要有一個 job
+jobs:
+  first-job:
+    # 指定運行環境，可以多個
+    runs-on: ubuntu-latest
+    # 指定工作流程的步驟(steps)
+    # 每個 step 可以用 run 來叫用其他 GitHub Actions
+    # 或是使用 run 來執行 shell 指令
+    steps:
+      - run: echo "This job was tirggered by a ${{ github.event_name }} event"
+      # 使用 actions/checkout 來 checkout repository
+      # 可能需要進行後續編譯或測試之類的
+      - name: checkout-repository
+        uses: actions/checkout@v4
+      - run: echo "job - Hello Actoins"
